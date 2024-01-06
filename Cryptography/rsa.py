@@ -27,6 +27,7 @@ Hence, there are 4 numbers(1,3,5 and 7) that are lesser than 8 and are co-prime 
 So, phi(8) = 4
 
 After we have phi_n, we can use that to get the private key:
+the following function just returns the modular multiplicative inverse
 d = gmpy2.invert(e, phi_n)  #where e is the public key
 
 Now, with the pivate key and modulus n, we can decrypt the message
@@ -58,6 +59,7 @@ phi_n = (p-1) * (q-1)
 
 # Inverting the public key with phi_n (we arn't using gmpy2 tho)
 # Function to calculate modular multiplicative inverse
+# d is a number that satisfies: (a * d) % m = 1, given a value of a and m
 def mod_inv(a, m):
     m0, x0, x1 = m, 0, 1
     while a > 1:
@@ -70,6 +72,9 @@ d = mod_inv(e, phi_n)
 decrypted_message = pow(c, d, n)
 print(f"Private key (d): {d}")
 print(f"Decrypted message: {bytearray.fromhex(hex(decrypted_message)[2:]).decode()}")
+
+print(mod_inv(18,7))
+print(mod_inv(19,9))
 
 
 
